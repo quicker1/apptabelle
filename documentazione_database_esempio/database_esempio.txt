@@ -1,0 +1,43 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+
+CREATE TABLE dipartimenti (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  denominazione varchar(250) COLLATE latin1_general_ci NOT NULL,
+  indirizzo text COLLATE latin1_general_ci NOT NULL,
+  telefono int(11),
+  email varchar(250) COLLATE latin1_general_ci NOT NULL,
+  foto varchar(255) COLLATE latin1_general_ci NOT NULL,
+  note text COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+CREATE TABLE stanze (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  id_dipartimento int(11) NOT NULL,
+  piano int(11),
+  magazzino tinyint(1),
+  responsabile varchar(255) COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_dipartimento) REFERENCES dipartimenti(id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
+CREATE TABLE oggetti (
+  id int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  id_stanza int(11) NOT NULL,
+  descrizione varchar(250) COLLATE latin1_general_ci NOT NULL,
+  datainserimento date NOT NULL,
+  valore int(11),
+  foto varchar(250) COLLATE latin1_general_ci NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (id_stanza) REFERENCES stanze(id)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+
